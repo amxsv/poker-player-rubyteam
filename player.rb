@@ -19,7 +19,7 @@ class Player
       bet += rank * Random.new.rand(69..72)
     elsif (rank > 0)
       brank = bear_rank(game_state)
-      if brank >= 3 && rank < bear_rank
+      if brank >= 3 && rank + 1 < bear_rank
         bet = 0
       else
         bet += rank * Random.new.rand(18..23)
