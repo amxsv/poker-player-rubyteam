@@ -1,7 +1,7 @@
 
 class Player
 
-  VERSION = "SuperRubyTeam"
+  VERSION = "SuperRubyTeam call_bet"
 
   def say(h)
     "huiui"
