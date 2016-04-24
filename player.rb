@@ -10,7 +10,7 @@ class Player
   def bet_request(game_state)
     p game_state
     # get_coefficient(game_state) * 1000
-    1000
+    300
   end
 
   def showdown(game_state)
