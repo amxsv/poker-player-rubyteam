@@ -49,4 +49,17 @@ class PlayerTest < Test::Unit::TestCase
     assert { bet == 0 }
   end
 
+  def test_is_pair
+    cards = [
+      {"rank"=>"9", "suit"=>"spades"},
+      {"rank"=>"9", "suit"=>"hearts"}]
+    assert { @player.pair?(cards) == true }
+  end
+
+  def test_is_pair2
+    cards = [{"rank"=>"10", "suit"=>"diamonds"},
+      {"rank"=>"9", "suit"=>"spades"}]
+    assert { @player.pair?(cards) == false }
+  end
+
 end

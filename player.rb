@@ -41,6 +41,10 @@ class Player
     game_state["community_cards"]
   end
 
+  def pair?(cards)
+    cards[0]["rank"] == cards[1]["rank"]
+  end
+
     # def rank_hand(our_hand(game_state))
 
     # end
