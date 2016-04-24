@@ -18,7 +18,12 @@ class Player
     if (rank > 6)
       bet += rank * Random.new.rand(69..72)
     elsif (rank > 0)
-      bet += rank * Random.new.rand(18..23)
+      brank = bear_rank(game_state)
+      if brank >= 3 && rank < bear_rank
+        bet = 0
+      else
+        bet += rank * Random.new.rand(18..23)
+      end
     elsif community_cards(game_state).empty? && pair?(our_hand(game_state))
       bet += 100
     elsif community_cards(game_state).empty? && is_dmitracof_zero(game_state)
@@ -32,9 +37,13 @@ class Player
 
   def bear_rank(game_state)
     team = get_team_by_name(game_state, "Comfortable Bear")
-    rank = team["bet"] / 100 + 1
-    if rank
+    if team["bet"] < 250
+      rank = 0
+    else
+      rank = team["bet"] / 100
     end
+
+    rank
   end
 
   def is_dmitracof_zero(game_state)

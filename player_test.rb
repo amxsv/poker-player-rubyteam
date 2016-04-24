@@ -10,7 +10,7 @@ class PlayerTest < Test::Unit::TestCase
         {"name"=>"DedicatedTeam", "stack"=>0, "status"=>"out", "bet"=>0, "version"=>"Default C# folding player", "id"=>0},
         {"name"=>"RubyTeam", "stack"=>5267, "status"=>"active", "bet"=>0,
           "hole_cards"=>[{"rank"=>"8", "suit"=>"diamonds"}, {"rank"=>"Q", "suit"=>"hearts"}], "version"=>"SuperRubyTeam", "id"=>1},
-        {"name"=>"Comfortable Bear", "stack"=>400, "status"=>"active", "bet"=>15, "version"=>"Default Ruby folding player", "id"=>2},
+        {"name"=>"Comfortable Bear", "stack"=>400, "status"=>"active", "bet"=>300, "version"=>"Default Ruby folding player", "id"=>2},
         {"name"=>"DmitracoffAndCompany", "stack"=>642, "status"=>"active", "bet"=>30, "version"=>"Default C++ folding player", "id"=>3},
         {"name"=>"POXEP", "stack"=>0, "status"=>"out", "bet"=>0, "version"=>"POHER", "id"=>4},
         {"name"=>"JSTeam", "stack"=>0, "status"=>"out", "bet"=>0, "version"=>"Default JavaScript folding player", "id"=>5},
@@ -45,6 +45,11 @@ class PlayerTest < Test::Unit::TestCase
   def test_dmitracoff
     zero = @player.is_dmitracof_zero(@game_state_start)
     assert { !zero }
+  end
+
+  def test_bear_rank
+    rank = @player.bear_rank(@game_state)
+    assert { rank == 3 }
   end
 
   def test_get_community_hands
