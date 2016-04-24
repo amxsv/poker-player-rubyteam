@@ -20,12 +20,19 @@ class Player
       bet += rank * Random.new.rand(18..23)
     elsif community_cards(game_state).empty? && pair?(our_hand(game_state))
       bet += 100
-    elsif community_cards(game_state).empty?
-      bet = bet > 501 ? 0 : bet
+    elsif community_cards(game_state).empty? && is_dmitracof_zero(game_state)
+      bet = bet > 222 ? 0 : bet
     else
       bet = 0
     end
     bet
+  end
+
+  def is_dmitracof_zero(game_state)
+    dmitracof_team = players.select{ |team|
+      team["name"] == "DmitracoffAndCompany"
+    }.first
+    dmitracof_team["stack"] == 0
   end
 
   def bet_request(game_state)
