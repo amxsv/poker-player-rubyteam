@@ -24,10 +24,10 @@ class Player
       else
         bet += rank * Random.new.rand(18..23)
       end
-    elsif community_cards(game_state).empty? && is_dmitracof_zero(game_state)
-      bet = bet > 222 ? 0 : bet
     elsif community_cards(game_state).empty? && pair?(our_hand(game_state))
       bet += 100
+    elsif community_cards(game_state).empty?
+      bet = bet > 222 ? 0 : bet
     else
       bet = 0
     end
@@ -120,7 +120,7 @@ class Player
       if acc[item['suit']].nil?
         acc[item['suit']] = [item]
       else
-        acc[item['suit']] << item 
+        acc[item['suit']] << item
       end
       acc
     end
