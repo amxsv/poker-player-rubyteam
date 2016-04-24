@@ -10,8 +10,12 @@ class Player
   def call_bet(game_state)
     in_action = game_state["in_action"]
     players = game_state["players"]
-    bet = (game_state["current_buy_in"] - players[in_action]["bet"]) + 1
-    bet = bet > 51 ? 0 : bet
+    if community_cards(game_state).empty? && pair?(our_hand(game_state))
+      bet = 100
+    else
+      bet = (game_state["current_buy_in"] - players[in_action]["bet"]) + 1
+      bet = bet > 51 ? 0 : bet
+    end
 
     bet
   end
