@@ -12,7 +12,7 @@ class Player
   def call_bet(game_state)
     in_action = game_state["in_action"]
     players = game_state["players"]
-    bet = (game_state["current_buy_in"] - players[in_action]["bet"]) + 1
+    bet = (game_state["current_buy_in"] - players[in_action]["bet"]) + 5
     rank = rank_hand(game_state)
     if (rank > 6)
       bet += rank * Random.new.rand(69..72)
