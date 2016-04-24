@@ -42,6 +42,11 @@ class PlayerTest < Test::Unit::TestCase
     assert { hand == [{"rank"=>"8", "suit"=>"diamonds"}, {"rank"=>"Q", "suit"=>"hearts"}] }
   end
 
+  def test_dmitracoff
+    zero = @player.is_dmitracof_zero(@game_state_start)
+    assert { !zero }
+  end
+
   def test_get_community_hands
     community_cards = @player.community_cards(@game_state)
     assert { community_cards == [{"rank"=>"10", "suit"=>"diamonds"}, {"rank"=>"9", "suit"=>"spades"}, {"rank"=>"9", "suit"=>"hearts"}, {"rank"=>"8", "suit"=>"spades"}, {"rank"=>"Q", "suit"=>"diamonds"}] }

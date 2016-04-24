@@ -30,11 +30,23 @@ class Player
     bet
   end
 
+  def bear_rank(game_state)
+    team = get_team_by_name(game_state, "Comfortable Bear")
+    rank = team["bet"] / 100 + 1
+    if rank
+    end
+  end
+
   def is_dmitracof_zero(game_state)
-    dmitracof_team = players.select{ |team|
-      team["name"] == "DmitracoffAndCompany"
-    }.first
+    dmitracof_team = get_team_by_name(game_state, "DmitracoffAndCompany")
     dmitracof_team["stack"] == 0
+  end
+
+  def get_team_by_name(game_state, name)
+    players = game_state["players"]
+    players.select{ |team|
+      team["name"] == name
+    }.first
   end
 
   def bet_request(game_state)
