@@ -14,6 +14,7 @@ class Player
     players = game_state["players"]
     bet = (game_state["current_buy_in"] - players[in_action]["bet"]) + 5
     rank = rank_hand(game_state)
+    p "#{game_state["current_buy_in"]} - #{players[in_action]["bet"]} + 5 = #{bet}; rank #{rank}"
     if (rank > 6)
       bet += rank * Random.new.rand(69..72)
     elsif (rank > 0)
@@ -25,6 +26,7 @@ class Player
     else
       bet = 0
     end
+    p "result bet #{bet}"
     bet
   end
 
