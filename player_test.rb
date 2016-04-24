@@ -62,4 +62,20 @@ class PlayerTest < Test::Unit::TestCase
     assert { @player.pair?(cards) == false }
   end
 
+  def test_is_royal_flash
+    cards = 
+    [
+      {"rank"=>"A", "suit"=>"spades"},
+      {"rank"=>"K", "suit"=>"spades"},
+      {"rank"=>"Q", "suit"=>"spades"},
+      {"rank"=>"K", "suit"=>"hearts"},
+      {"rank"=>"J", "suit"=>"spades"},
+      {"rank"=>"10", "suit"=>"spades"},
+      {"rank"=>"8", "suit"=>"spades"}
+    ]
+
+    assert {@player.royal_flash?(cards) == true}
+
+  end
+
 end
