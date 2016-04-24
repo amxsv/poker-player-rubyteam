@@ -85,10 +85,12 @@ class Player
 
   def rank_hand(game_state)
     full_cards = community_cards(game_state) + our_hand(game_state)
+    if royal_flash?(full_cards)
+      return 10
+    end
     if full_cards.size < 5
       return 0
     end
-    puts full_cards.inspect
 
     respond = HTTParty.get('http://rainman.leanpoker.org/rank',
                            headers: {'Content-Type' => 'application/x-www-form-urlencoded'},
@@ -104,7 +106,6 @@ class Player
   def royal_flash?(cards)
     royal_flash_queue = ["A", "K", "Q", "J", "10"]
     royal_flash_container = []
-    default_suit = cards[0]["suit"]
 
     for card in cards
       if (royal_flash_queue.include?(card["rank"]))
@@ -120,7 +121,7 @@ class Player
       if acc[item['suit']].nil?
         acc[item['suit']] = [item]
       else
-        acc[item['suit']] << item 
+        acc[item['suit']] << item
       end
       acc
     end
@@ -129,6 +130,13 @@ class Player
       filtered[key].count == 5
     end
 
-    return keys_five_card.count >= 1
+    if keys_five_card.count >= 1
+      all_ranks = filtered[keys_five_card.first].map do |card|
+        card['rank']
+      end
+      all_ranks.uniq.count == 5
+    else
+      false
+    end
   end
 end
