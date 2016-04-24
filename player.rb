@@ -37,7 +37,7 @@ class Player
     len = cards.map {|card|
       card["rank"]
     }.uniq.length
-    base_len - len + 1
+    base_len - len
   end
 
   def bear_rank(game_state)
