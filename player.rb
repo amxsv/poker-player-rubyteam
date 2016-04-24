@@ -1,3 +1,5 @@
+require 'httparty'
+require 'cgi'
 
 class Player
 
@@ -41,7 +43,10 @@ class Player
     game_state["community_cards"]
   end
 
-    # def rank_hand(our_hand(game_state))
-
-    # end
+  def rank_hand(game_state)
+    HTTParty.get('http://rainman.leanpoker.org/rank',
+                 headers: {'Content-Type' => 'application/x-www-form-urlencoded'},
+                 body: "cards=#{CGI.escape(our_hand(game_state).to_json)}"
+                )
+  end
 end
