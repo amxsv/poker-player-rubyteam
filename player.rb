@@ -15,24 +15,29 @@ class Player
     bet = (game_state["current_buy_in"] - players[in_action]["bet"]) + 5
     rank = rank_hand(game_state)
     p "#{game_state["current_buy_in"]} - #{players[in_action]["bet"]} + 5 = #{bet}; rank #{rank}"
-    if (rank > 6)
+    desk_rank = rank_on_desk(community_cards(game_state))
+    is_hand_max = rank > desk_rank
+    if (rank > 6) && is_hand_max
       bet += rank * Random.new.rand(69..72)
-    elsif (rank > 0)
-      brank = bear_rank(game_state)
-      if brank >= 3 && rank < bear_rank
-        bet = 0
-      else
-        bet += rank * Random.new.rand(18..23)
-      end
-    elsif community_cards(game_state).empty? && is_dmitracof_zero(game_state)
-      bet = bet > 222 ? 0 : bet
+    elsif (rank > 0) && is_hand_max
+      bet += rank * Random.new.rand(18..23)
     elsif community_cards(game_state).empty? && pair?(our_hand(game_state))
       bet += 100
+    elsif community_cards(game_state).empty?
+      bet = bet > 222 ? 0 : bet
     else
       bet = 0
     end
     p "result bet #{bet}"
     bet
+  end
+
+  def rank_on_desk(cards)
+    base_len = cards.length
+    len = cards.map {|card|
+      card["rank"]
+    }.uniq.length
+    base_len - len + 1
   end
 
   def bear_rank(game_state)
