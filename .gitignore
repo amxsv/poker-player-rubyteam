@@ -31,4 +31,3 @@ doc/
 #vagrant
 .vagrant
 Vagrantfile
-cm/ansible-deps

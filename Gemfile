@@ -8,3 +8,4 @@ gem 'sinatra'
 gem 'wrong'
 gem "pry"
 gem "pry-byebug"
+gem 'httparty'
