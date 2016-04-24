@@ -25,7 +25,8 @@ class Player
       our_team["hole_cards"]
     end
 
-    def rank_hand(our_hand(game_state))
-    end
+    # def rank_hand(our_hand(game_state))
+
+    # end
   end
 end
