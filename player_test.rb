@@ -3,10 +3,7 @@ require './test_helper'
 class PlayerTest < Test::Unit::TestCase
   def setup
     @player = Player.new
-  end
-
-  def test_get_our_hand
-    game_state = {"tournament_id"=>"571260c407f6720003000002",
+    @game_state = {"tournament_id"=>"571260c407f6720003000002",
       "game_id"=>"571c6c75368a420003000029",
       "round"=>87,
       "players"=>[
@@ -18,10 +15,21 @@ class PlayerTest < Test::Unit::TestCase
         {"name"=>"POXEP", "stack"=>0, "status"=>"out", "bet"=>0, "version"=>"POHER", "id"=>4},
         {"name"=>"JSTeam", "stack"=>0, "status"=>"out", "bet"=>0, "version"=>"Default JavaScript folding player", "id"=>5},
         {"name"=>"Pasha Team", "stack"=>646, "status"=>"folded", "bet"=>0, "version"=>"Default Go folding player", "id"=>6}],
-        "small_blind"=>15, "big_blind"=>30, "orbits"=>12, "dealer"=>1, "community_cards"=>[],
+        "small_blind"=>15, "big_blind"=>30, "orbits"=>12, "dealer"=>1,
+        "community_cards"=>[{"rank"=>"10", "suit"=>"diamonds"}, {"rank"=>"9", "suit"=>"spades"},
+          {"rank"=>"9", "suit"=>"hearts"}, {"rank"=>"8", "suit"=>"spades"},
+          {"rank"=>"Q", "suit"=>"diamonds"}],
         "current_buy_in"=>30, "pot"=>45, "in_action"=>1, "minimum_raise"=>15, "bet_index"=>6}
-    hand = @player.our_hand(game_state)
+  end
+
+  def test_get_our_hand
+    hand = @player.our_hand(@game_state)
     assert { hand == [{"rank"=>"8", "suit"=>"diamonds"}, {"rank"=>"Q", "suit"=>"hearts"}] }
+  end
+
+  def test_get_community_hands
+    community_cards = @player.community_cards(@game_state)
+    assert { community_cards == [{"rank"=>"10", "suit"=>"diamonds"}, {"rank"=>"9", "suit"=>"spades"}, {"rank"=>"9", "suit"=>"hearts"}, {"rank"=>"8", "suit"=>"spades"}, {"rank"=>"Q", "suit"=>"diamonds"}] }
   end
 
   def test_check_exception

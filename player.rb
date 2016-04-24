@@ -37,6 +37,10 @@ class Player
     our_team["hole_cards"]
   end
 
+  def community_cards(game_state)
+    game_state["community_cards"]
+  end
+
     # def rank_hand(our_hand(game_state))
 
     # end
