@@ -49,4 +49,9 @@ class Player
                  body: "cards=#{CGI.escape(our_hand(game_state).to_json)}"
                 )
   end
+
+  def pair?(cards)
+    cards[0]["rank"] == cards[1]["rank"]
+  end
+
 end
