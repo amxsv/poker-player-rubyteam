@@ -11,7 +11,7 @@ class Player
     in_action = game_state["in_action"]
     players = game_state["players"]
     bet = (game_state["current_buy_in"] - players[in_action]["bet"]) + 1
-    bet = bet > 101 ? 0 : bet
+    bet = bet > 51 ? 0 : bet
 
     bet
   end
