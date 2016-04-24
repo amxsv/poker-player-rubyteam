@@ -37,6 +37,13 @@ class PlayerTest < Test::Unit::TestCase
         "current_buy_in"=>30, "pot"=>45, "in_action"=>1, "minimum_raise"=>15, "bet_index"=>6}
   end
 
+  def test_comb_in_community
+    community_cards = [{"rank"=>"10", "suit"=>"diamonds"}, {"rank"=>"9", "suit"=>"spades"},
+          {"rank"=>"9", "suit"=>"hearts"}, {"rank"=>"9", "suit"=>"spades"},
+          {"rank"=>"Q", "suit"=>"diamonds"}]
+    assert { @player.rank_on_desk(community_cards) == 3 }
+  end
+
   def test_get_our_hand
     hand = @player.our_hand(@game_state)
     assert { hand == [{"rank"=>"8", "suit"=>"diamonds"}, {"rank"=>"Q", "suit"=>"hearts"}] }
@@ -100,7 +107,7 @@ class PlayerTest < Test::Unit::TestCase
   end
 
   def test_is_royal_flash
-    cards = 
+    cards =
     [
       {"rank"=>"A", "suit"=>"spades"},
       {"rank"=>"K", "suit"=>"spades"},
