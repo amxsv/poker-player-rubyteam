@@ -99,6 +99,22 @@ class PlayerTest < Test::Unit::TestCase
     assert { @player.pair?(cards) == false }
   end
 
+  def test_is_royal_flash
+    cards = 
+    [
+      {"rank"=>"A", "suit"=>"spades"},
+      {"rank"=>"K", "suit"=>"spades"},
+      {"rank"=>"Q", "suit"=>"spades"},
+      {"rank"=>"K", "suit"=>"hearts"},
+      {"rank"=>"J", "suit"=>"spades"},
+      {"rank"=>"10", "suit"=>"spades"},
+      {"rank"=>"8", "suit"=>"spades"}
+    ]
+
+    assert {@player.royal_flash?(cards) == true}
+
+  end
+
   def test_rank_hand_lower_5
     game_state = {"tournament_id"=>"571260c407f6720003000002", "game_id"=>"571c6c75368a420003000029", "round"=>87, "players"=>[{"name"=>"DedicatedTeam", "stack"=>0, "status"=>"out", "bet"=>0, "version"=>"Default C# folding player", "id"=>0}, {"name"=>"RubyTeam", "stack"=>5267, "status"=>"active", "bet"=>0, "hole_cards"=>[{"rank"=>"8", "suit"=>"diamonds"}, {"rank"=>"Q", "suit"=>"hearts"}], "version"=>"SuperRubyTeam", "id"=>1}, {"name"=>"Comfortable Bear", "stack"=>400, "status"=>"active", "bet"=>15, "version"=>"Default Ruby folding player", "id"=>2}, {"name"=>"DmitracoffAndCompany", "stack"=>642, "status"=>"active", "bet"=>200, "version"=>"Default C++ folding player", "id"=>3}, {"name"=>"POXEP", "stack"=>0, "status"=>"out", "bet"=>0, "version"=>"POHER", "id"=>4}, {"name"=>"JSTeam", "stack"=>0, "status"=>"out", "bet"=>0, "version"=>"Default JavaScript folding player", "id"=>5}, {"name"=>"Pasha Team", "stack"=>646, "status"=>"folded", "bet"=>0, "version"=>"Default Go folding player", "id"=>6}], "small_blind"=>15, "big_blind"=>30, "orbits"=>12, "dealer"=>1, "community_cards"=>[{"rank"=>"4", "suit"=>"diamonds"}, {"rank"=>"K", "suit"=>"spades"}], "current_buy_in"=>200, "pot"=>45, "in_action"=>1, "minimum_raise"=>15, "bet_index"=>6}
     rank_hand = @player.rank_hand(game_state)

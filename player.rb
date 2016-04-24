@@ -101,4 +101,34 @@ class Player
     cards[0]["rank"] == cards[1]["rank"]
   end
 
+  def royal_flash?(cards)
+    royal_flash_queue = ["A", "K", "Q", "J", "10"]
+    royal_flash_container = []
+    default_suit = cards[0]["suit"]
+
+    for card in cards
+      if (royal_flash_queue.include?(card["rank"]))
+        royal_flash_container.push(card)
+      end
+    end
+
+    if (royal_flash_container.length < 5)
+      return false;
+    end
+
+    filtered = royal_flash_container.reduce({}) do |acc, item|
+      if acc[item['suit']].nil?
+        acc[item['suit']] = [item]
+      else
+        acc[item['suit']] << item 
+      end
+      acc
+    end
+
+    keys_five_card = filtered.keys.select do |key|
+      filtered[key].count == 5
+    end
+
+    return keys_five_card.count >= 1
+  end
 end
