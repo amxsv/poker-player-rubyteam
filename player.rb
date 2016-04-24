@@ -15,13 +15,16 @@ class Player
     bet = (game_state["current_buy_in"] - players[in_action]["bet"]) + 1
     rank = rank_hand(game_state)
     if (rank > 6)
-      bet = rank * Random.new.rand(69..72)
+      bet += rank * Random.new.rand(69..72)
     elsif (rank > 0)
-      bet = rank * Random.new.rand(18..23)
+      bet += rank * Random.new.rand(18..23)
+    elsif community_cards(game_state).empty? && pair?(our_hand(game_state))
+      bet += 100
+    elsif community_cards(game_state).empty?
+      bet = bet > 501 ? 0 : bet
     else
-      bet = bet > 51 ? 0 : bet
+      bet = 0
     end
-
     bet
   end
 
@@ -58,9 +61,9 @@ class Player
     puts full_cards.inspect
 
     respond = HTTParty.get('http://rainman.leanpoker.org/rank',
-                 headers: {'Content-Type' => 'application/x-www-form-urlencoded'},
-                 body: "cards=#{CGI.escape(full_cards.to_json)}"
-                )
+                           headers: {'Content-Type' => 'application/x-www-form-urlencoded'},
+                           body: "cards=#{CGI.escape(full_cards.to_json)}"
+                          )
     JSON.parse(respond)['rank']
   end
 
